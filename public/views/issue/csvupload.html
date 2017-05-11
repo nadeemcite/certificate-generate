@@ -1,0 +1,96 @@
+<div class="container">
+    <section ng-show="state==1">
+        <div class="row">
+            <h2>Select Any Document Type</h2> </div>
+        <div class="row">
+            <div class="col-md-4" style="cursor:pointer;" ng-click="selectDoctype(doctype)" ng-repeat="doctype in doctypes">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{doctype.name}}</h3> </div>
+                    <div class="panel-body">
+                        <div style="width:100%; height:200px; background:url('api/docbackground/{{doctype.template._id}}')"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section ng-show="state==2">
+        <div class="row"> Upload CSV </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form class="card" ng-submit="submitForm()">
+                    <div class="form-group">
+                        <label for="csvfile">CSV</label>
+                        <input type="text" readonly="" class="form-control" placeholder="Browse2...">
+                        <input type="file" file-model="csv"> </div>
+                    <div class="form-group">
+                        <button class="btn btn-raised" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section ng-show="state==3">
+        <div class="row">
+            <h2>Parsed Fields</h2>
+            <div class="list-group" ng-hide="k" ng-repeat="(key,value) in csvParsedDATA[0]">
+                <div class="list-group-item">
+                    <div class="row-action-primary checkbox">
+                        <label>
+                            <input type="checkbox" checked ng-model="selectedKeys[key]"> </label>
+                    </div>
+                    <div class="row-content">
+                        <h4 class="list-group-item-heading">{{key}}</h4>
+                        <p class="list-group-item-text">e.g. {{value}}</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+            </div>
+            <button class="btn btn-raised" ng-click="setFields()">Submit</button>
+        </div>
+    </section>
+    <section ng-show="state==4">
+        <form ng-submit="submitFinalData()">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th ng-show="value" ng-repeat="(key,value) in selectedKeys">{{key}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in csvParsedDATA">
+                        <td ng-show="value" ng-repeat="(key,value) in selectedKeys">
+                            <input type="text" ng-model="data[key]" required /> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-raised" type="submit">Submit</button>
+        </form>
+    </section>
+    <section ng-show="state==5">
+        <div class="row">
+            <canvas id="resultCreator" class="col" height="600" width="800"></canvas>
+        </div>
+        <div class="tools">
+            <button class="btn btn-raised btn-xs" ng-click="deleteObject()" ng-disabled="!objectSelected">Delete Selected</button>
+            <br />
+            <div class="dropdown">
+                <button class="dropdown-toggle btn btn-raised" data-toggle="dropdown">Add Field <b class="caret"></b></button>
+                <ul class="dropdown-menu">
+                    <li><a ng-if="value" ng-repeat="(key,value) in selectedKeys" ng-click="addField(key)">{{key}}</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-raised btn-xs" ng-click="submitFinalCanvas()">Submit</button>
+        </div>
+    </section>
+    <section ng-show="state==6">
+        <div class="row">
+            <h2>Creating Documents</h2>
+            <h4>Please do not close the browser</h4>
+            <div class="progress">
+                <div id="totalProgress" class="progress-bar progress-bar-success" style="width: 0%"></div>
+            </div>
+            <canvas id="tempCanvas" class="col" height="600" width="800" ></canvas>
+        </div>
+    </section>
+</div>

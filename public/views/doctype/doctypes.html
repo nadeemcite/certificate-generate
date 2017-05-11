@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Sr. No.</td>
+                    <td >Doctype name</td>
+                    <td class="text-center">Selected Template</td>
+                    <td>Delete</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="/doctype" class="btn btn-raised btn-xs btn-active">Add New</a>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="doctype in doctypes">
+                    <td>{{$index+1}}</td>
+                    <td>{{doctype.name}}</td>
+                    <td class="text-center">
+                        <img ng-src="api/docbackground/{{doctype.template._id}}" style="width:50px; height:50px;"><br />
+                        <small>{{doctype.template.name}}</small>
+                    </td>
+                    <td><button class="btn btn-raised btn-xs btn-active" ng-click="deleteDoctype(doctype._id)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

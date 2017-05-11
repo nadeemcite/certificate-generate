@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="col-md-10 col-md-offset-1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Sr. No.</td>
+                    <td>Doctype name</td>
+                    <td>Background</td>
+                    <td>Delete</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="/template" class="btn btn-raised btn-xs btn-active">Add New</a>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="docdesign in docdesigns">
+                    <td>{{$index+1}}</td>
+                    <td>{{docdesign.name}}</td>
+                    <td><img ng-src="api/docbackground/{{docdesign._id}}" style="width:100px; height:100px"></td>
+                    <td><button class="btn btn-raised btn-xs btn-active" ng-click="deleteDoc(docdesign._id)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
